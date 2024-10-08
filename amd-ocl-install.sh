@@ -90,6 +90,21 @@ if [[ -z $rocmVer ]]; then
 		5.7)
 			rocmVer="5.7"
 			;;
+                5.8)
+			rocmVer="5.8"
+			;;
+                5.9)
+			rocmVer="5.9"
+			;;
+                6.0)
+			rocmVer="6.0"
+			;;
+                6.1)
+			rocmVer="6.1"
+			;;
+                6.2)
+			rocmVer="6.2"
+			;;
 		*)
 			echo "${RED}Error! AMD OpenCL version not specified! ${NOCOLOR}"
 			echo
