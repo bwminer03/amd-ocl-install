@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
-VERS="0.2"
+VERS="beta-0.1"
 [ -t 1 ] && . colors
 
 echo
-echo "${CYAN}AMD OpenCL Installer v${VERS}${NOCOLOR}"
+echo "${CYAN}UnOffical AMD OpenCL Installer v${VERS}${NOCOLOR} by bwminer03"
 
 amdgpuVer=$1
 rocmVer=$2
