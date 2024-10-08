@@ -113,9 +113,6 @@ if [[ -z $rocmVer ]]; then
 	echo "${CYAN}> Not specified ROCM version, use ${YELLOW}$rocmVer${CYAN} for this version of amdgpu by default${NOCOLOR}"
 fi
 
-# Example usage of urlcall function
-urlcall "https://api.example.com/some-endpoint"  # Modify this URL as needed
-
 # Uninstall previous libs
 echo "${CYAN}> Remove any previously installed OpenCL libs...${NOCOLOR}"
 [[ -e /opt/amdgpu/VERSION ]] && _uninstall
