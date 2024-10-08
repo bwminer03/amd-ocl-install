@@ -3,7 +3,7 @@ VERS="beta-0.1"
 [ -t 1 ] && . colors
 
 echo
-echo "${CYAN}UnOffical AMD OpenCL Installer v${VERS}${NOCOLOR} by bwminer03"
+echo "${CYAN}UnOfficial AMD OpenCL Installer v${VERS}${NOCOLOR} by bwminer03"
 
 amdgpuVer=$1
 rocmVer=$2
@@ -34,29 +34,22 @@ function _check {
 
 function _check_availible {
 	echo "${YELLOW}Availible versions of AMDGPU OpenCL:${NOCOLOR}"
-	apt-cache search hive-amdgpu |sed 's/hive-amdgpu-/\t/g'|sort
+	  apt-cache search hive-amdgpu |sed 's/hive-amdgpu-/\t/g'|sort
 	echo "${YELLOW}Availible versions of ROCM OpenCL:${NOCOLOR}"
-	apt-cache search hive-rocm |sed 's/hive-rocm-/\t/g'|sort
+	  apt-cache search hive-rocm |sed 's/hive-rocm-/\t/g'|sort
+# Check an external source for AMDGPU versions
+        echo "${YELLOW}Checking GitHub releases for ROCM...${NOCOLOR}"
+           curl -s "https://github.com/bwminer03/amd-rocm/releases" | \
+           grep -oP 'tag-name">v\K[^<]+' | sort
+#Tell Us it Worked
+       response=$(curl -s "https://github.com/bwminer03/amd-rocm/releases")
+            if [[ $? -ne 0 || -z "$response" ]]; then
+       echo "${RED}Failed to fetch releases from GitHub.${NOCOLOR}"
+else
+       echo "$response" | grep -oP 'tag-name">v\K[^<]+' | sort
+fi
 }
 _check
-
-# Define the urlcall function
-function urlcall {
-    local url=$1
-    if [[ -z "$url" ]]; then
-        echo "${RED}No URL provided!${NOCOLOR}"
-        return 1
-    fi
-
-    response=$(curl -s "$url")
-    if [[ $? -ne 0 ]]; then
-        echo "${RED}Failed to fetch URL: $url${NOCOLOR}"
-        return 1
-    fi
-
-    echo "${CYAN}Response from $url:${NOCOLOR}"
-    echo "$response"
-}
 
 if [[ -z $rocmVer ]]; then
 	case $amdgpuVer in
