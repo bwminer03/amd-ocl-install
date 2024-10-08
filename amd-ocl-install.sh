@@ -40,6 +40,24 @@ function _check_availible {
 }
 _check
 
+# Define the urlcall function
+function urlcall {
+    local url=$1
+    if [[ -z "$url" ]]; then
+        echo "${RED}No URL provided!${NOCOLOR}"
+        return 1
+    fi
+
+    response=$(curl -s "$url")
+    if [[ $? -ne 0 ]]; then
+        echo "${RED}Failed to fetch URL: $url${NOCOLOR}"
+        return 1
+    fi
+
+    echo "${CYAN}Response from $url:${NOCOLOR}"
+    echo "$response"
+}
+
 if [[ -z $rocmVer ]]; then
 	case $amdgpuVer in
 		20.40)
@@ -86,6 +104,9 @@ if [[ -z $rocmVer ]]; then
 	esac
 	echo "${CYAN}> Not specified ROCM version, use ${YELLOW}$rocmVer${CYAN} for this version of amdgpu by default${NOCOLOR}"
 fi
+
+# Example usage of urlcall function
+urlcall "https://api.example.com/some-endpoint"  # Modify this URL as needed
 
 # Uninstall previous libs
 echo "${CYAN}> Remove any previously installed OpenCL libs...${NOCOLOR}"
