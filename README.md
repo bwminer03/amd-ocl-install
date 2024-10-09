@@ -1,2 +1,2 @@
 # amd-ocl-install
-script from hiveos
+Orignal unmodified script from hiveos
